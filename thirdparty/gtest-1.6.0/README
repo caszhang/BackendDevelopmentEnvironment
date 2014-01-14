@@ -1,0 +1,12 @@
+if you want to update the lib, the following content can be FYI.
+
+1,get the zip file from http://code.google.com/p/googletest/downloads/list
+2,put the zip file to your DIR
+3,unzip zip file
+4,install according to README
+	./configure --prefix=$YOUR_INSTALL_PATH
+	make
+	cd make 
+	make
+5,copy $DIR/include $DIR/make/gtest_main.a to $YOUR_INSTALL_PATH, and you'd better rename gtest_main.a to gtest.a
+6,update current dir with the include and libgtest.a 

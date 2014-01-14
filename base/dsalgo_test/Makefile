@@ -1,0 +1,2 @@
+all:
+	g++ -g -o common_queue_test common_queue_test.cc -I. -I../../base -I../../thirdparty/gtest-1.6.0/include -L../../base/lib -L../../thirdparty/gtest-1.6.0/lib -ldsalgo -lgtest -lpthread
