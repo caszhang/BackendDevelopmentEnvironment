@@ -1,6 +1,10 @@
 all:
 	g++ -g -o common_queue_test common_queue_test.cc -I. -I../../base -I../../thirdparty/gtest-1.6.0/include -L../../base/lib -L../../thirdparty/gtest-1.6.0/lib -ldsalgo -lgtest -lpthread
 	g++ -g -o lru_hashmap_test lru_hashmap_test.cc -I. -I../../base -I../../thirdparty/gtest-1.6.0/include -L../../base/lib -L../../thirdparty/gtest-1.6.0/lib -ldsalgo -lgtest -lpthread
+	g++ -g -o entry_test entry_test.cc -I. -I../../base -I../../thirdparty/gtest-1.6.0/include -L../../base/lib -L../../thirdparty/gtest-1.6.0/lib -ldsalgo -lgtest -lpthread
+	g++ -g -o session_pool_test session_pool_test.cc -I. -I../../base -I../../thirdparty/gtest-1.6.0/include -L../../base/lib -L../../thirdparty/gtest-1.6.0/lib -ldsalgo -lgtest -lpthread
 clean:
 	rm common_queue_test
 	rm lru_hashmap_test
+	rm entry_test
+	rm session_pool_test
