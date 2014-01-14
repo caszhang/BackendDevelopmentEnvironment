@@ -1,6 +1,5 @@
-// Copyright (c) 2013, Baidu Inc.
 // All rights reserved.
-// Author: zhangguoqiang01 <zhangguoqiang01@baidu.com>
+// Author: zhangguoqiang01 <80176975@qq.com>
 // Fixed size, support multithreaded, circular queue
 // optimize: each mutex for head & tail, 2013
 #ifndef COMMON_QUEUE_H_

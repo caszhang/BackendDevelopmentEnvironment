@@ -1,6 +1,5 @@
-// Copyright (c) 2012, Tencent Inc.
 // All rights reserved.
-// Author: caszhang <caszhang@tencent.com>
+// Author: zhangguoqiang01 <80176975@qq.com>
 // Fixed size, support multithreaded, circular queue
 
 #include "dsalgo/common_queue.cc"

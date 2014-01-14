@@ -133,7 +133,7 @@ TEST(CommonQueueTest, TestCompositeDataType)
     ret = queue->Init(10);
     EXPECT_TRUE(ret);
     int32_t size = static_cast<int32_t>(queue->GetSize());
-    EXPECT_EQ(10, size);
+    EXPECT_EQ(16, size);
     int32_t node_num = static_cast<int32_t>(queue->GetNodeNum());
     EXPECT_EQ(0, node_num);
 
