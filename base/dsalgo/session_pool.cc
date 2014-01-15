@@ -19,6 +19,14 @@ SessionPool<S>::~SessionPool()
 template <class S>
 bool SessionPool<S>::Init(int32_t pool_size)
 {
+    if (1 > pool_size) {
+   	return false; 
+    }
+    int32_t temp_size = pool_size;
+    pool_size = 1;
+    while (pool_size < temp_size) {
+        pool_size <<= 1;
+    }
     m_session_list = new S[pool_size];
     m_session_queue = new CommonQueue<S*>;
     if (!m_session_queue->Init(pool_size)) {

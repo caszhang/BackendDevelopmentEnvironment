@@ -8,7 +8,7 @@ WARNING_FLAGS = -Wall -Wextra
 CFLAGS = -g $(WARNING_FLAGS) 
 CC = g++
 DIRS := . 
-SOURCE := $(foreach DIRS,$(DIRS),$(wildcard $(DIRS)/*.cc)) 
+SOURCE := $(foreach DIRS,$(DIRS),$(wildcard $(DIRS)/*.cc))
 OBJS := $(patsubst %.cc,%.o,$(SOURCE))
 all: $(EXECUTABLE)
 
