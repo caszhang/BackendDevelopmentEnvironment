@@ -1,0 +1,9 @@
+In this dir, your gcc version should be gcc 4.1 or later,
+if the gcc version satisfy, you can:
+	1,cp * to ../
+	2,modify Makefile, and like this 
+		for all part:
+			g++ -g -o $YOUR $YOUR.cc -I. -I../../base -I../../thirdparty/gtest-1.6.0/include -L../../base/lib -L../../thirdparty/gtest-1.6.0/lib -ldsalgo -lgtest -lpthread
+		for clean part:
+			rm $YOUR
+	2,make clena;make -j
