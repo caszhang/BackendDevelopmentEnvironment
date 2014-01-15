@@ -1,0 +1,4 @@
+In this dir, your gcc version should be gcc 4.1 or later,
+if the gcc version satisfy, you can:
+	1,mv/cp * to ../
+	2,make clena;make -j
