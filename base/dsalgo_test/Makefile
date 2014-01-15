@@ -7,6 +7,10 @@ all:
 	g++ -g -o hashmap_test hashmap_test.cc -I. -I../../base -I../../thirdparty/gtest-1.6.0/include -L../../base/lib -L../../thirdparty/gtest-1.6.0/lib -ldsalgo -lgtest -lpthread
 	g++ -g -o union_search_set_test union_search_set_test.cc -I. -I../../base -I../../thirdparty/gtest-1.6.0/include -L../../base/lib -L../../thirdparty/gtest-1.6.0/lib -ldsalgo -lgtest -lpthread
 	g++ -g -o sort_test sort_test.cc -I. -I../../base -I../../thirdparty/gtest-1.6.0/include -L../../base/lib -L../../thirdparty/gtest-1.6.0/lib -ldsalgo -lgtest -lpthread
+	g++ -g -o bitmap_test bitmap_test.cc -I. -I../../base -I../../thirdparty/gtest-1.6.0/include -L../../base/lib -L../../thirdparty/gtest-1.6.0/lib -ldsalgo -lgtest -lpthread
+	g++ -g -o nbitmap_test nbitmap_test.cc -I. -I../../base -I../../thirdparty/gtest-1.6.0/include -L../../base/lib -L../../thirdparty/gtest-1.6.0/lib -ldsalgo -lgtest -lpthread
+	g++ -g -o skiplist_test skiplist_test.cc -I. -I../../base -I../../thirdparty/gtest-1.6.0/include -L../../base/lib -L../../thirdparty/gtest-1.6.0/lib -ldsalgo -lgtest -lpthread
+	g++ -g -o stack_test stack_test.cc -I. -I../../base -I../../thirdparty/gtest-1.6.0/include -L../../base/lib -L../../thirdparty/gtest-1.6.0/lib -ldsalgo -lgtest -lpthread
 clean:
 	rm common_queue_test
 	rm lru_hashmap_test
@@ -16,3 +20,7 @@ clean:
 	rm hashmap_test
 	rm union_search_set_test
 	rm sort_test
+	rm bitmap_test
+	rm nbitmap_test
+	rm skiplist_test
+	rm stack_test
