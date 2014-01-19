@@ -1,0 +1,12 @@
+if you want to update the lib, the following content can be FYI.
+
+1,get the zip file from https://code.google.com/p/treeconf/downloads/list
+2,put the *.zip file to your DIR
+3,unzip treeconf.zip file
+4,install according to README
+	rewrite Makefile according to this dir's Makefie, recommend, as same as
+	rename string.h as tstring.h to avoid conflict
+        modify the config.c file, change |"include "string.h"| to |#include "tstring.h"|
+	if you want to remove some log info, modify it in config.c, the log info can help you debug
+	make	
+5, cp *.h *.a to $YOUR_INSTALL_PATH
