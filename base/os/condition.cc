@@ -1,18 +1,4 @@
-/***************************************************************************
- * 
- * Copyright (c) 2014 80176975@qq.com, Inc. All Rights Reserved
- * 
- **************************************************************************/
- 
- 
- 
-/**
- * @file condition.cc
- * @author zhangguoqiang01(80176975@qq.com)
- * @date 2014/01/11 17:27:56
- * @brief 
- *  
- **/
+// Author: zhangguoqiang01 <80176975@qq.com>
 #include "condition.h"
 
 Condition::Condition(Mutex &mutex):m_mutex(mutex)

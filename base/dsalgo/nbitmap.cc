@@ -1,4 +1,3 @@
-// All rights reserved.
 // Author: zhangguoqiang01 <80176975@qq.com>
 // encapsulate BitMap,support N bit-bitmap
 

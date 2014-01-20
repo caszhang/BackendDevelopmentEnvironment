@@ -1,18 +1,4 @@
-/***************************************************************************
- * 
- * Copyright (c) 2013 80176975@qq.com, Inc. All Rights Reserved
- * 
- **************************************************************************/
- 
- 
- 
-/**
- * @file lock.cc
- * @author zhangguoqiang01(80176975@qq.com)
- * @date 2013/12/17 21:46:29
- * @brief 
- *  
- **/
+// Author: zhangguoqiang01 <80176975@qq.com>
 #include "lock.h"
 
 Lock::Lock(Mutex& mutex):m_mutex(mutex)

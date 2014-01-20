@@ -1,5 +1,3 @@
-// Copyright (c) 2013, Baidu Inc.
-// All rights reserved.
 // Author: zhangguoqiang01 <zhangguoqiang01@baidu.com>
 // All common head files
 #ifndef HEAD_H_

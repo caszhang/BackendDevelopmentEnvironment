@@ -1,4 +1,3 @@
-// All rights reserved.
 // Author: zhangguoqiang01 <80176975@qq.com>
 // base class for class needing thread
 #include "thread_base.h"

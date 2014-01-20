@@ -1,4 +1,3 @@
-// All rights reserved.
 // Author: zhangguoqiang01 <80176975@qq.com>
 #ifndef BITMAP_H_
 #define BITMAP_H_

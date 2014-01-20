@@ -1,4 +1,3 @@
-// All rights reserved.
 // Author: zhangguoqiang01 <80176975@qq.com>
 // Fixed size, lock-free, support multithreaded, circular queue
 // especially suitable for one producer and mutiple consumer

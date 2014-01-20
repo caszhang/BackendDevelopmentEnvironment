@@ -1,3 +1,4 @@
+// Author: zhangguoqiang01 <80176975@qq.com>
 #include "union_search_set.h"
 
 int32_t Max(int32_t a, int32_t b)

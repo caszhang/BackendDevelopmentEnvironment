@@ -1,4 +1,3 @@
-// All rights reserved.
 // Author: zhangguoqiang01 <80176975@qq.com>
 // store the free session
 #ifndef SESSION_POOL_H_

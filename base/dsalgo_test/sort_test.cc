@@ -1,3 +1,4 @@
+// Author: zhangguoqiang01 <80176975@qq.com>
 #include <stdlib.h>
 #include <time.h>
 

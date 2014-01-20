@@ -1,39 +1,28 @@
-/***************************************************************************
- * 
- * Copyright (c) 2014 80176975@qq.com, Inc. All Rights Reserved
- * 
- **************************************************************************/
- 
- 
- 
-/**
- * @file thread.cc
- * @author zhangguoqiang01(80176975@qq.com)
- * @date 2014/01/17 11:46:42
- * @brief 
- *  
- **/
+// Author: zhangguoqiang01 <80176975@qq.com>
 #include "thread.h"
 
-Thread::Thread(ThreadFunc &func)
-    :m_func(func)
+void* thread_routine(void *param)
+{
+    Thread *t = reinterpret_cast<Thread*>(param);
+    t->m_func(t->m_param);
+    return NULL;
+    //pthread_exit(NULL);
+}
+
+
+//Thread::Thread(ThreadFunc &func, void* param)
+Thread::Thread(ThreadFunc func, void* param)
+    :m_func(func), 
+     m_param(param)
 {
 }
 
 Thread::~Thread()
 {}
 
-void* Thread::Routine(void *param)
-{
-    Thread *t = reinterpret_cast<Thread*>(param);
-    t->m_func(param);
-    return NULL;
-    //pthread_exit(NULL);
-}
-
 void Thread::Start()
 {
-    int ret = pthread_create(&m_thread, NULL, Thread::Routine, this);
+    int ret = pthread_create(&m_thread, NULL, thread_routine, this);
     assert(0 == ret);
     return;
 }

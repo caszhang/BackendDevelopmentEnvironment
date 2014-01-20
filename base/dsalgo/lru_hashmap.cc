@@ -1,4 +1,3 @@
-// All rights reserved.
 // Author: zhangguoqiang01 <80176975@qq.com>
 // support lru, especially suitable for 64-bit system
 #ifndef LRU_HASHMAP_CC_H_

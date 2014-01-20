@@ -1,20 +1,4 @@
-/***************************************************************************
- * 
- * Copyright (c) 2014 80176975@qq.com, Inc. All Rights Reserved
- * 
- **************************************************************************/
- 
- 
- 
-/**
- * @file condition.h
- * @author zhangguoqiang01(80176975@qq.com)
- * @date 2014/01/11 17:24:32
- * @brief 
- *  
- **/
-
-
+// Author: zhangguoqiang01 <80176975@qq.com>
 
 
 #ifndef  __CONDITION_H_

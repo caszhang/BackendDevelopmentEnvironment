@@ -1,4 +1,3 @@
-// All rights reserved.
 // Author: zhangguoqiang01 <80176975@qq.com>
 // Element for lru hashmap, especially suitable for 64-bit system
 #ifndef ENTRY_H_

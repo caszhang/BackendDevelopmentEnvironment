@@ -1,4 +1,3 @@
-// All rights reserved.
 // Author: zhangguoqiang01 <80176975@qq.com>
 // Fixed size, support multithreaded, circular queue
 // optimize: each mutex for head & tail, 2013
