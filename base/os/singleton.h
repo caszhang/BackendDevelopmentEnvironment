@@ -6,7 +6,7 @@ class Singleton
 {
 public:
 	static T* GetInstance();
-	void ReleaseInstance();
+	static void ReleaseInstance();
 private:
 	Singleton();
 	~Singleton();
