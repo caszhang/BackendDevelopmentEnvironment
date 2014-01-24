@@ -4,55 +4,55 @@
 
 class ThreadBaseInstance:public ThreadBase
 {
-public:
-    ThreadBaseInstance() {
-        m_continue = true; 
-        m_run = 0;
-        m_un_run = 0;
-    }
+    public:
+        ThreadBaseInstance() {
+            m_continue = true; 
+            m_run = 0;
+            m_un_run = 0;
+        }
 
-    virtual ~ThreadBaseInstance() {}
+        virtual ~ThreadBaseInstance() {}
 
-    virtual void Run() {
-        while (m_continue) {
-            usleep(1000 * 10);
-            m_run++;
-        } 
-        m_un_run++;
-    }
-    virtual void UnRun() {
-        m_continue = false; 
-    }
+        virtual void Run() {
+            while (m_continue) {
+                usleep(1000 * 10);
+                m_run++;
+            } 
+            m_un_run++;
+        }
+        virtual void UnRun() {
+            m_continue = false; 
+        }
 
-    bool GetContinue() {
-        return m_continue;
-    }
+        bool GetContinue() {
+            return m_continue;
+        }
 
-    int32_t GetRun() {
-        return m_run; 
-    }
+        int32_t GetRun() {
+            return m_run; 
+        }
 
-    int32_t GetUnRun() {
-        return m_un_run; 
-    }
-private:
-    bool m_continue;
-    int32_t m_run;
-    int32_t m_un_run;
+        int32_t GetUnRun() {
+            return m_un_run; 
+        }
+    private:
+        bool m_continue;
+        int32_t m_run;
+        int32_t m_un_run;
 };
 
 class ThreadBaseInstanceTest:public testing::Test
 {
-protected:
-    virtual void SetUp() {
-        m_instance = new ThreadBaseInstance;
-    }
-    virtual void TearDown() {
-        delete m_instance;
-        m_instance = NULL; 
-    }
-public:
-    ThreadBaseInstance *m_instance;    
+    protected:
+        virtual void SetUp() {
+            m_instance = new ThreadBaseInstance;
+        }
+        virtual void TearDown() {
+            delete m_instance;
+            m_instance = NULL; 
+        }
+    public:
+        ThreadBaseInstance *m_instance;    
 };
 
 TEST_F(ThreadBaseInstanceTest, TestCommon)
@@ -67,9 +67,9 @@ TEST_F(ThreadBaseInstanceTest, TestCommon)
     EXPECT_TRUE(m_instance->GetContinue());
     EXPECT_GT(m_instance->GetRun(), 0);
     EXPECT_EQ(0, m_instance->GetUnRun());
-    
+
     m_instance->Stop();
-    
+
     EXPECT_FALSE(m_instance->GetContinue());
     EXPECT_GT(m_instance->GetRun(), 0);
     EXPECT_GT(m_instance->GetUnRun(), 0);

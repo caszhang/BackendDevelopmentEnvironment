@@ -1,6 +1,6 @@
 // Author: zhangguoqiang01 <80176975@qq.com>
 #include "gtest/gtest.h"
-#include "os/mutex.cc"
+#include "os/lock.h"
 #include "os/thread.h"
 
 struct MutexComposition {
@@ -28,9 +28,8 @@ void increase(void *param)
 {
     MutexComposition *mutex_composition = reinterpret_cast<MutexComposition*>(param);
     for (int i = 0; i < 200; i++) {
-        mutex_composition->m_mutex->Lock();  
+        Lock temp_lock(*(mutex_composition->m_mutex));
         mutex_composition->m_value++;
-        mutex_composition->m_mutex->Unlock();  
         usleep(100);
     }
 }
@@ -39,14 +38,13 @@ void decrease(void *param)
 {
     MutexComposition *mutex_composition = reinterpret_cast<MutexComposition*>(param);
     for (int i = 0; i < 100; i++) {
-        mutex_composition->m_mutex->Lock();  
+        Lock temp_lock(*(mutex_composition->m_mutex));
         mutex_composition->m_value--;
-        mutex_composition->m_mutex->Unlock();  
         usleep(100);
     }
 }
 
-TEST(MutexTest, MultiThreadTest) 
+TEST(LockTest, MultiThreadTest) 
 {
     Mutex mutex;
     int value = 0;

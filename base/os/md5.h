@@ -6,7 +6,7 @@
 /**
  * Same as 'md5sum' command, returned size is always 32.
  */
-uint32_t md5sumUint(const void* dat, size_t len);
+//uint32_t md5sumUint(const void* dat, size_t len);
 
 
 /**

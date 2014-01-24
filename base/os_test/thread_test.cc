@@ -11,22 +11,22 @@ void increase(void *param)
 
 class SomeInstance
 {
-public:
-    SomeInstance() {
-        m_num = 0; 
-    }
+    public:
+        SomeInstance() {
+            m_num = 0; 
+        }
 
-    virtual ~SomeInstance() {}
+        virtual ~SomeInstance() {}
 
-    void Increase() {
-        m_num++; 
-    }   
-    
-    int32_t GetNum() {
-        return m_num; 
-    } 
-private:
-    int32_t m_num;
+        void Increase() {
+            m_num++; 
+        }   
+
+        int32_t GetNum() {
+            return m_num; 
+        } 
+    private:
+        int32_t m_num;
 };
 
 void increase_instance(void *param)

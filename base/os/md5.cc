@@ -299,7 +299,7 @@ string md5sum(const void* dat, size_t len) {
     }
     return res;
 }
-
+/*
 uint32_t md5sumUint(const void* dat, size_t len) {
     string res;
     unsigned char out[16];
@@ -312,7 +312,7 @@ uint32_t md5sumUint(const void* dat, size_t len) {
     sscanf(res.c_str(), "%u", &temp_res);
     return temp_res;
 }
-
+*/
 
 void md5bin(const void* dat, size_t len, unsigned char out[16]) {
     MD5_CTX c;

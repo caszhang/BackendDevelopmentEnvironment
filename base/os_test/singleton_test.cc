@@ -4,27 +4,27 @@
 
 class SingleInstance
 {
-public:
-    SingleInstance() {
-        m_value = 0;
-        Init(); 
-    }
-    ~SingleInstance() {
-        Release(); 
-    }
-    bool Init() {
-        m_value++; 
-    }
-    void Release() {}
-    int32_t GetValue() {
-        return m_value; 
-    }
+    public:
+        SingleInstance() {
+            m_value = 0;
+            Init(); 
+        }
+        ~SingleInstance() {
+            Release(); 
+        }
+        bool Init() {
+            m_value++; 
+        }
+        void Release() {}
+        int32_t GetValue() {
+            return m_value; 
+        }
 
-    void IncreaseValue() {
-        m_value++; 
-    }
-private:
-    int32_t m_value;
+        void IncreaseValue() {
+            m_value++; 
+        }
+    private:
+        int32_t m_value;
 };
 
 TEST(SingletonTest, TestCommon) 
