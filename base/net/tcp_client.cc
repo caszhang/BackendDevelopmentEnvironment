@@ -1,5 +1,4 @@
 // Author: zhangguoqiang01 <80176975@qq.com>
-// tcp client for sending data to iu
 #include "dsalgo/head.h"
 #include "tcp_client.h"
 
