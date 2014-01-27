@@ -318,8 +318,10 @@ int32_t TcpServer::DoSend(int32_t sock, char *data, int32_t len)
     return 0;
 }
 
-int32_t TcpServer::DoRecv(const int32_t socket, const char *buf, const int32_t len)
+int32_t TcpServer::DoRecv(int32_t socket, const char *buf, int32_t len)
 {
+    socket = -1;
+    buf = NULL;
     return len;
 }
 
@@ -336,25 +338,44 @@ int32_t TcpServer::HandleReadEvent(int32_t sock)
         // too much to read 
         return -1;
     }
-    int recv_size = read(sock, conn->m_read_buf + conn->m_read_off, kMaxConnectionBufSize - conn->m_read_off);
-    if (recv_size > 0) {
-        conn->m_read_off += recv_size;
-        int ret = DoRecv(sock, (char*)(conn->m_read_buf), conn->m_read_off); 
-        if (ret < 0 || ret > conn->m_read_off) {
-            return -1;
+    int recv_size = 0;
+    bool is_break = false;
+    while (true) {
+        recv_size = read(sock, conn->m_read_buf + conn->m_read_off, kMaxConnectionBufSize - conn->m_read_off);
+        if (recv_size > 0) {
+            is_break = false;
+            if (recv_size < (kMaxConnectionBufSize - conn->m_read_off)) {
+                is_break = true; 
+            }
+            conn->m_read_off += recv_size;
+            int ret = DoRecv(sock, (char*)(conn->m_read_buf), conn->m_read_off); 
+            if (ret < 0 || ret > conn->m_read_off) {
+                return -1;
+            }
+            int left = conn->m_read_off - ret;
+            if (left > 0 && 0 != ret) {
+                memmove(conn->m_read_buf, conn->m_read_buf + ret, left);
+            }
+            conn->m_read_off = left;
+            if (conn->m_read_off >= kMaxConnectionBufSize) {
+                // too much to read 
+                return -1;
+            } 
+            if (is_break) {
+                break; 
+            }
+        } else if (0 == recv_size) {
+            // client closed
+            return -1; 
+        } else {
+            if (errno == EINTR) {
+                continue;
+            } else if (errno == EAGAIN) {
+                break; 
+            } else {
+                return -1; 
+            }
         }
-        int left = conn->m_read_off - ret;
-        if (left > 0 && 0 != ret) {
-            memmove(conn->m_read_buf, conn->m_read_buf + ret, left);
-        }
-        conn->m_read_off = left;
-    } else if (0 == recv_size) {
-        // client closed
-        return -1; 
-    } else {
-        if (errno != EINTR && errno != EAGAIN) {
-            return -1;
-        } 
     }
     return 0;
 }

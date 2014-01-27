@@ -55,7 +55,7 @@ public:
     int32_t HandleWriteEvent(int32_t sock);
     void CloseConnection(int32_t sock);
     bool HasToWrite(int32_t sock);
-    virtual int32_t DoRecv(const int32_t socket, const char * buf, const int32_t len);
+    virtual int32_t DoRecv(int32_t socket, const char * buf, int32_t len);
     int32_t DoSend(int32_t sock, char *data, int32_t len);
     void Start();
     void Stop();
