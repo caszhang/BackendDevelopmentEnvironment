@@ -113,6 +113,7 @@ TcpServer::TcpServer()
     m_work_thread = NULL;
     m_workers_per_epoll = 0;
     m_conn_map = NULL;
+    //m_work_socket_list = NULL;
 }
 
 TcpServer::~TcpServer()
@@ -148,6 +149,9 @@ bool TcpServer::Init(const char *ipv4, const uint16_t port, const int32_t work_e
     if (!InitNet()) {
         return false; 
     }
+
+    //m_work_socket_list = new LinkedList<int32_t , char>;
+    m_work_socket_list.clear();
 
     if (0 != pthread_create(&m_listen_thread, NULL, listen_thread, this)) {
         return false; 
@@ -261,6 +265,8 @@ int32_t TcpServer::GetWorkEpollFd(int socket)
     conn.m_socket = socket;
     m_conn_map->Insert(socket, conn);
     m_work_epoll_fd_idx = (m_work_epoll_fd_idx + 1) % m_work_epoll_fd_size;
+    //m_work_socket_list->Insert(socket, 0);
+    m_work_socket_list.push_back(socket);
     return epoll_fd;
 }
 
@@ -415,7 +421,7 @@ void TcpServer::CloseConnection(int32_t sock)
     //Connection *conn = &m_connection[sock];
     Connection *conn = NULL;
     if (!m_conn_map->Find(sock, conn)) {
-        CloseConnection(sock);
+        //CloseConnection(sock);
         return;
     }
 
@@ -425,7 +431,8 @@ void TcpServer::CloseConnection(int32_t sock)
     conn->m_write_off = 0;
     epoll_ctl(m_work_epoll_fd[conn->m_work_epoll_idx], EPOLL_CTL_DEL, conn->m_socket, &ev_register);
     close(conn->m_socket);
-
+    //m_conn_map->Delete(sock);
+    //m_work_socket_list->Delete(sock);
     return;
 }
 
@@ -469,6 +476,19 @@ void TcpServer::Stop()
         }
     }
     */
+    struct epoll_event ev_unreg; 
+    std::vector<int32_t>::iterator it;
+    Connection *conn = NULL;
+    for (it = m_work_socket_list.begin(); it != m_work_socket_list.end(); ++it) {
+        if (!m_conn_map->Find(*it, conn)) {
+            continue; 
+        }
+        if (conn->m_using) {
+            epoll_ctl(m_work_epoll_fd[conn->m_work_epoll_idx], EPOLL_CTL_DEL, conn->m_socket, &ev_unreg);
+            close(conn->m_socket);
+            conn->m_socket = -1;
+        }
+    }
 
     for (int i =  0; i < m_work_epoll_fd_size; i++) {
         close(m_work_epoll_fd[i]);
@@ -481,6 +501,14 @@ void TcpServer::Stop()
 
 void TcpServer::Release()
 {
+    /*
+    if (NULL != m_work_socket_list) {
+        m_work_socket_list->Release();
+        delete m_work_socket_list;
+        m_work_socket_list = NULL; 
+    }
+    */
+
     if (NULL != m_work_thread) {
         delete[] m_work_thread;
         m_work_thread = NULL; 

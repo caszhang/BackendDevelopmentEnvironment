@@ -74,6 +74,7 @@ private:
     Mutex m_conn_mutex[kMaxConnectionNum];
     //Mutex m_send_mutex;
     HashMap<int32_t, Connection> *m_conn_map;
+    std::vector<int32_t> m_work_socket_list;
 };
 #endif  //__TCP_SERVER_H_
 
