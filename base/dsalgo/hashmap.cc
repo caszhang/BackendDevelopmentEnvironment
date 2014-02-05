@@ -40,6 +40,8 @@ bool HashMap<Key, Value>::Release()
     for (int32_t i = 0; i < m_bucket_num; i++) {
         m_array[i].Release();
     }
+    delete[] m_array;
+    m_array = NULL;
     return true;
 }
 template <class Key, class Value>
