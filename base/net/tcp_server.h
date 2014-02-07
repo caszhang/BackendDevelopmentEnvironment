@@ -12,7 +12,7 @@
 #include "os/lock.h"
 
 const int32_t kDefaultMaxEpollFdSize = 8;
-const int32_t kDefaultMaxWorkersPerEpoll = 8;
+const int32_t kDefaultMaxWorkersPerEpoll = 1;
 const int32_t kMaxListenHostSize = 24;
 const int32_t kMaxConnectionBufSize = 1024 * 64;
 const int32_t kMaxConnectionNum = 65536;

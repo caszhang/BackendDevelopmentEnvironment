@@ -94,11 +94,11 @@ TEST_F(TcpServerTest, TestCommon)
 
     t_one.Start();
     t_two.Start();
-    //t_three.Start();
+    t_three.Start();
 
     t_one.Stop();
     t_two.Stop();
-    //t_three.Stop();
+    t_three.Stop();
 
     int32_t all_count = 0;
     int32_t all_sum = 0;

@@ -14,23 +14,25 @@ void* listen_thread(void *param)
     int32_t listen_epoll_fd = epoll_create(kMaxEpollListenNum);
     int32_t listen_socket = tcp_server->GetSocket();
     struct epoll_event ev_register;
-    ev_register.events  = EPOLLIN;
+    //ev_register.events  = EPOLLIN | EPOLLONESHOT;
+    ev_register.events  = EPOLLIN | EPOLLET;
     ev_register.data.fd = listen_socket;
     epoll_ctl(listen_epoll_fd, EPOLL_CTL_ADD, listen_socket, &ev_register);
-    struct epoll_event event;
-    
+    //struct epoll_event event;
+    struct epoll_event events[kMaxEpollListenNum];    
     // only handle listen socket
     socklen_t clilen;
     struct sockaddr_in clientaddr;
     int ret = 0;
     while (tcp_server->IsRunning()) {
-        int32_t event_num = epoll_wait(listen_epoll_fd, &event, 1, kTimeWaitOut);
-        if (event_num > 0) {
+        int32_t event_num = epoll_wait(listen_epoll_fd, events, kMaxEpollListenNum, kTimeWaitOut);
+        for (int i = 0; i < event_num; i++) {
             int sock = accept(listen_socket, (sockaddr*)&clientaddr, &clilen);
             if (sock > 0) {
                 tcp_server->SetNonBlocking(sock);
                 ev_register.data.fd = sock;
-                ev_register.events = EPOLLIN | EPOLLONESHOT; 
+                //ev_register.events = EPOLLIN | EPOLLONESHOT; 
+                ev_register.events = EPOLLIN | EPOLLET; 
                 // register to worker pool's epoll
                 ret = epoll_ctl(tcp_server->GetWorkEpollFd(sock), EPOLL_CTL_ADD, sock, &ev_register);
                 if (ret < 0) {
@@ -62,39 +64,41 @@ void* work_thread(void *param)
     int32_t work_epoll_fd = *((int32_t*)param);
     TcpServer *tcp_server = g_tcp_server;
     struct epoll_event ev_register;
-    struct epoll_event event;
+    //struct epoll_event event;
+    struct epoll_event events[kMaxEpollListenNum];    
     while (tcp_server->IsRunning()) {
-        int32_t event_num = epoll_wait(work_epoll_fd, &event, 1, kTimeWaitOut);
-        if (event_num > 0) {
-            int sock = event.data.fd;
+        int32_t event_num = epoll_wait(work_epoll_fd, events, kMaxEpollListenNum, kTimeWaitOut);
+        for (int i = 0; i < event_num; i++) {
+            int sock = events[i].data.fd;
 
-            if ((event.events & EPOLLERR) ||
-                (event.events & EPOLLHUP) ||
-                (!(event.events & EPOLLIN))) {
+            if ((events[i].events & EPOLLERR) ||
+                (events[i].events & EPOLLHUP) ||
+                (!(events[i].events & EPOLLIN))) {
                 tcp_server->CloseConnection(sock);
                 continue;
             }
 
-            if (event.events & EPOLLOUT) {
+            if (events[i].events & EPOLLOUT) {
                 if (tcp_server->HandleWriteEvent(sock) == -1) {
                     tcp_server->CloseConnection(sock);
                     continue;
                 }
             }
 
-            if (event.events & EPOLLIN) {
+            if (events[i].events & EPOLLIN) {
                 if (tcp_server->HandleReadEvent(sock) == -1) {
                     tcp_server->CloseConnection(sock);
                     continue;
                 }
             }
 
-            ev_register.events = EPOLLIN | EPOLLONESHOT;
+            //ev_register.events = EPOLLIN | EPOLLONESHOT;
+            //ev_register.events = EPOLLIN | EPOLLET;
             if (tcp_server->HasToWrite(sock)) {
                 ev_register.events |= EPOLLOUT;
+                ev_register.data.fd = sock;
+                epoll_ctl(work_epoll_fd, EPOLL_CTL_MOD, sock, &ev_register);
             }
-            ev_register.data.fd = sock;
-            epoll_ctl(work_epoll_fd, EPOLL_CTL_MOD, sock, &ev_register);
         }
     }
 
