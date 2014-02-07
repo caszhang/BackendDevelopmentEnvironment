@@ -1,4 +1,4 @@
-EXECUTABLE := ../lib/linet.a 
+EXECUTABLE := ../lib/libnet.a 
 BASE_PATH := ../../base
 INCS := . $(BASE_PATH)
 USER_MARCOS :=

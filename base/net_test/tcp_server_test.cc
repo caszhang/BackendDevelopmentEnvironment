@@ -3,17 +3,23 @@
 #include "net/tcp_client.h"
 #include "net/tcp_server.h"
 #include "os/lock.h"
+#include "os/thread.h"
 
 class TcpServerInstance:public TcpServer
 {
 public:    
+    TcpServerInstance() {
+        m_recv_count = 0;
+        m_recv_len = 0; 
+    }
     virtual int32_t DoRecv(int32_t socket, const char * buf, int32_t len) {
         Lock lock(m_mutex);
         m_recv_count++;
         m_recv_len += len;
         return len; 
     }
-private:
+//private:
+public:
     Mutex m_mutex;
     int32_t m_recv_count;
     int32_t m_recv_len;
@@ -55,13 +61,13 @@ struct Composition {
 void send_func(void *param)
 {
     Composition *c = reinterpret_cast<Composition*>(param);
-    TcpClient *tc = c.m_tc;
+    TcpClient *tc = c->m_tc;
     char buf[8];
     for (int i = 0; i < 100; i++) {
         snprintf(buf, 8, "%d", i);
-        tc->Send(buf, strlen(buf)); 
-        c.m_count++;
-        c.m_sum += strlen(buf);
+        assert(tc->Send(buf, strlen(buf))); 
+        c->m_count++;
+        c->m_sum += strlen(buf);
     }
         
 }
@@ -88,12 +94,22 @@ TEST_F(TcpServerTest, TestCommon)
 
     t_one.Start();
     t_two.Start();
-    t_three.Start();
+    //t_three.Start();
 
     t_one.Stop();
     t_two.Stop();
-    t_three.Stop();
+    //t_three.Stop();
 
+    int32_t all_count = 0;
+    int32_t all_sum = 0;
+    all_count += c_one.m_count;
+    all_count += c_two.m_count;
+    all_count += c_three.m_count;
+    all_sum += c_one.m_sum;
+    all_sum += c_two.m_sum;
+    all_sum += c_three.m_sum;
+    //EXPECT_EQ(m_tcp_server_instance->m_recv_count, all_count);
+    EXPECT_EQ(m_tcp_server_instance->m_recv_len, all_sum);
     tc_one->Release();
     delete tc_one;
     tc_two->Release();
