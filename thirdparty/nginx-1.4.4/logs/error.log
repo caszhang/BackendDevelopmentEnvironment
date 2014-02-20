@@ -1,0 +1,1 @@
+2014/02/19 13:46:54 [error] 27185#0: *1 open() "/home/users/zhangguoqiang01/github/BackgroudDevelopmentEnvionment/thirdparty/nginx-1.4.4/html/favicon.ico" failed (2: No such file or directory), client: 172.22.158.30, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "cq01-rdqa-dev080.cq01.baidu.com:8081"

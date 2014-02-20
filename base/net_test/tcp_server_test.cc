@@ -16,6 +16,7 @@ public:
         Lock lock(m_mutex);
         m_recv_count++;
         m_recv_len += len;
+        DoSend(socket, const_cast<char*>(buf), len);
         return len; 
     }
 //private:
@@ -62,14 +63,19 @@ void send_func(void *param)
 {
     Composition *c = reinterpret_cast<Composition*>(param);
     TcpClient *tc = c->m_tc;
-    char buf[8];
-    for (int i = 0; i < 100; i++) {
-        snprintf(buf, 8, "%d", i);
-        assert(tc->Send(buf, strlen(buf))); 
+    char send_buf[8];
+    char recv_buf[8];
+    int i;
+    for (i = 0; i < 100; i++) {
+        snprintf(send_buf, 8, "%d", i);
+        assert(tc->Send(send_buf, strlen(send_buf))); 
+        assert(tc->Recv(recv_buf, strlen(send_buf)));
+        EXPECT_STREQ(send_buf, recv_buf);
         c->m_count++;
-        c->m_sum += strlen(buf);
+        c->m_sum += strlen(send_buf);
     }
-        
+    printf("%d\n", i);       
+    return;
 }
 
 TEST_F(TcpServerTest, TestCommon)
@@ -116,6 +122,7 @@ TEST_F(TcpServerTest, TestCommon)
     delete tc_two;
     tc_three->Release();
     delete tc_three;
+    printf("done\n");
 
 }
 
