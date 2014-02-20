@@ -1,18 +1,4 @@
-/***************************************************************************
- * 
- * Copyright (c) 2014 Baidu.com, Inc. All Rights Reserved
- * 
- **************************************************************************/
- 
- 
- 
-/**
- * @file write_disk.h
- * @author zhangguoqiang01(com@baidu.com)
- * @date 2014/01/07 17:23:00
- * @brief 
- *  
- **/
+// Author: zhangguoqiang01 <80176975@qq.com>
 #ifndef  __WRITE_DISK_H_
 #define  __WRITE_DISK_H_
 #include "dsalgo/head.h"

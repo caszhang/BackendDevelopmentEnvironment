@@ -1,6 +1,4 @@
-// Copyright (c) 2013, Baidu Inc.
-// All rights reserved.
-// Author: zhangguoqiang01 <zhangguoqiang01@baidu.com>
+// Author: zhangguoqiang01 <80176975@qq.com>
 #ifndef UTIL_H_
 #define UTIL_H_
 #include <semaphore.h>

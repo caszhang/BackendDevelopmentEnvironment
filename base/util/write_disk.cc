@@ -1,19 +1,4 @@
-/***************************************************************************
- * 
- * Copyright (c) 2014 Baidu.com, Inc. All Rights Reserved
- * 
- **************************************************************************/
-
-
-
-/**
- * @file write_disk.cc
- * @author zhangguoqiang01(com@baidu.com)
- * @date 2014/01/07 17:23:12
- * @brief 
- *  
- **/
-
+// Author: zhangguoqiang01 <80176975@qq.com>
 #include <unistd.h>
 #include "write_disk.h"
 
