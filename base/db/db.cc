@@ -50,7 +50,7 @@ bool DB::Connect()
     }
 
     if (0 !=mysql_set_server_option(m_mysql, MYSQL_OPTION_MULTI_STATEMENTS_ON)) {
-        fprintf(stderr, "mysql_set_server_option %s Error:%s\n", mysql_error(m_mysql));
+        fprintf(stderr, "mysql_set_server_option %d Error:%s\n", MYSQL_OPTION_MULTI_STATEMENTS_ON, mysql_error(m_mysql));
         Release();
         return false;
     }
