@@ -21,6 +21,16 @@ std::string StringFormat(const char* format, ...)
 	return std::string(buf);
 }
 
+std::string GetTimeString()
+{
+    char path[32];
+	time_t lt = time(NULL);
+	struct tm temp_tm;// = {0};
+	localtime_r(&lt, &temp_tm);
+    snprintf(path, 64, "%04d.%02d.%02d.%02d.%02d", temp_tm.tm_year+1900, temp_tm.tm_mon + 1, temp_tm.tm_mday, temp_tm.tm_hour, temp_tm.tm_min);
+    return std::string(path);
+}
+
 void GetFullName(char *path, int32_t by_date, int32_t forward_seek_num, const int32_t max_len, const char *path_prefix)
 {
 	time_t lt = time(NULL);
