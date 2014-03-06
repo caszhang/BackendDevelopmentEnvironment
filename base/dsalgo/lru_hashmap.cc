@@ -175,6 +175,15 @@ bool LruHashMap<K, V>::AddEntry(K key, V value, int32_t idx)
 }
 
 template <class K, class V>
+bool LruHashMap<K, V>::GetFutureRemoveKey(K &key, V &value)
+{
+    int32_t eldest = m_header->after;
+    key = m_entry_array[eldest].key;
+    value = m_entry_array[eldest].value;
+    return true;
+}
+
+template <class K, class V>
 bool LruHashMap<K, V>::IsFull()
 {
     if (m_node_num >= m_max_entries) {

@@ -23,6 +23,7 @@ public:
     bool IsFull();
     bool GetLatestNodeKey(K* &key);
     bool GetLatestNKeyValue(K** key, V** value, int *num);
+    bool GetFutureRemoveKey(K &key, V &value);
 private:
     bool RecordAccess(Entry<K, V> *e, bool is_lru);
     bool AddEntry(K key, V value, int32_t idx);
