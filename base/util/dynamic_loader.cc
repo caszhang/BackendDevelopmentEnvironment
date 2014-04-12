@@ -32,7 +32,7 @@ void DynamicLoader::Run()
             LoadInstance();
             SetNoNeedLoad();
         }
-        sleep(10);
+        sleep(1);
     }
 }
 
