@@ -19,10 +19,12 @@ public:
 
         char recv_buf[8];
         int recv_len = 0;
+        int buf_len = 0;
         while (true) {
             memset(recv_buf, 0, 8 * sizeof(recv_buf[0]));
-            recv_len = recv(socket, recv_buf, 8, 0); 
+            recv_len = recv(socket, recv_buf, 2, 0); 
             if (recv_len > 0) {
+                recv_buf[recv_len] = '\0';
                 printf("recv:[%s]\n", recv_buf);
             } else {
                 if ((recv_len < 0) && (errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR)) {
@@ -76,14 +78,13 @@ void send_func(void *param)
     Composition *c = reinterpret_cast<Composition*>(param);
     TcpClient *tc = c->m_tc;
     char send_buf[8];
-    char recv_buf[8];
     int i;
     for (i = 0; i < 100; i++) {
+        memset(send_buf, 0, 8);
         snprintf(send_buf, 8, "%d", i);
         assert(tc->Send(send_buf, strlen(send_buf))); 
         printf("send:[%s]\n", send_buf);       
         c->m_count++;
-        c->m_sum += strlen(send_buf);
     }
     return;
 }
@@ -93,10 +94,10 @@ TEST_F(SimpleServerTest, TestCommon)
 {
     TcpClient *tc_one = new TcpClient;
     tc_one->Init(ip, port);
-    sleep(1);
+    // sleep(1);
     TcpClient *tc_two = new TcpClient;
     tc_two->Init(ip, port);
-    sleep(1);
+    // sleep(1);
     TcpClient *tc_three = new TcpClient;
     tc_three->Init(ip, port);
 
@@ -120,8 +121,8 @@ TEST_F(SimpleServerTest, TestCommon)
     t_one.Stop();
     t_two.Stop();
     t_three.Stop();
-    
-    // sleep(2);
+   
+    sleep(2);
     tc_one->Release();
     delete tc_one;
     tc_two->Release();

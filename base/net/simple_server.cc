@@ -136,19 +136,37 @@ void SimpleServer::Run()
                 events[i].data.fd = -1;
                 continue;
             } else if (events[i].data.fd == m_socket) {
-                connfd = accept(m_socket,(sockaddr*)&clientaddr, &clilen);
-                if(connfd < 0){
-                    perror("connfd<0");
-                    continue;
+                while (true) {
+                    char hbuf[NI_MAXHOST];
+                    char sbuf[NI_MAXSERV];
+                    connfd = accept(m_socket,(sockaddr*)&clientaddr, &clilen);
+                    if (connfd == -1)  
+                    {  
+                        if ((errno == EAGAIN) || (errno == EWOULDBLOCK))  
+                        {  
+                            /* We have processed all incoming 
+                             * connections. */  
+                            break;  
+                        } else {
+                            perror("connfd<0");
+                            break;  
+                        }  
+                    } 
+                    int flag = getnameinfo((sockaddr*)&clientaddr, clilen, hbuf, sizeof(hbuf), sbuf, sizeof(sbuf), NI_NUMERICHOST | NI_NUMERICSERV);
+                    if (flag == 0) {
+                        printf("Accepted connection on descriptor %d "  
+                                "(host=%s, port=%s)\n", connfd, hbuf, sbuf);  
+                    } 
+                    // printf("called.....%s\n", inet_ntoa(clientaddr.sin_addr));
+                    ThreadArgument *thread_argument = new ThreadArgument;
+                    thread_argument->m_instance = (void*)this;
+                    thread_argument->m_socket = connfd;
+                    ThreadPoolTask thread_pool_task;
+                    thread_pool_task.m_function = simple_server_process;
+                    thread_pool_task.m_argument = (void*)thread_argument;
+                    // printf("task add\n");
+                    m_thread_pool->AddTask(thread_pool_task);
                 }
-                ThreadArgument *thread_argument = new ThreadArgument;
-                thread_argument->m_instance = (void*)this;
-                thread_argument->m_socket = connfd;
-                ThreadPoolTask thread_pool_task;
-                thread_pool_task.m_function = simple_server_process;
-                thread_pool_task.m_argument = (void*)thread_argument;
-                // printf("task add\n");
-                m_thread_pool->AddTask(thread_pool_task);
             }
         }
     }
