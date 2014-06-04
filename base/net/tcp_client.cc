@@ -157,5 +157,10 @@ int32_t TcpClient::Readn(int32_t fd, void *desc, int32_t count)
 
 bool TcpClient::Release()
 {
+    if (-1 != m_socket) {
+        close(m_socket);
+        m_socket = -1;
+    }
+
     return true;
 }

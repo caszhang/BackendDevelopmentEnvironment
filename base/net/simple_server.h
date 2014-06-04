@@ -35,7 +35,7 @@ public:
     void Release();
     virtual void Run();
     virtual void UnRun();
-    virtual void ProcessSocket(int socket) = 0;
+    virtual void ProcessSocket(int &socket) = 0;
 private:
     char m_ip[32];
     uint16_t m_port;

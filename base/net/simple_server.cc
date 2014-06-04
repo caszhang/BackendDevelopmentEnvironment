@@ -6,6 +6,7 @@ const static int32_t kSendTimeout = 2000;
 const static int32_t kRecvTimeout = 200;
 void simple_server_process(void *param) 
 {
+    // printf("simple_server_process called\n");
     ThreadArgument *ta = (ThreadArgument*)param;
     SimpleServer *ss = (SimpleServer*)(ta->m_instance);
     ss->ProcessSocket(ta->m_socket);
@@ -56,6 +57,7 @@ bool SimpleServer::InitNet()
         return false;
     }   
 
+    /*
     struct timeval tv;
     tv.tv_sec  = kSendTimeout / 1000;
     tv.tv_usec = (kSendTimeout % 1000) * 1000;
@@ -68,6 +70,7 @@ bool SimpleServer::InitNet()
     if(0 != setsockopt(m_socket, SOL_SOCKET, SO_RCVTIMEO, reinterpret_cast<char *>(&tv), sizeof(tv))) {
         return false;
     }
+    */
 
     SetNonBlocking(m_socket);
     struct sockaddr_in serv_addr;
@@ -124,6 +127,7 @@ void SimpleServer::Run()
     while (m_continue) {
         event_num = epoll_wait(m_epoll_fd, events, kMaxEpollListenNum, kTimeWaitOut);
         for(int i = 0; i < event_num; ++i) {
+            // printf("SimpleServer::Run envent\n");
             if ((events[i].events & EPOLLERR) ||
                     (events[i].events & EPOLLHUP) ||
                     (!(events[i].events & EPOLLIN))) {
@@ -143,6 +147,7 @@ void SimpleServer::Run()
                 ThreadPoolTask thread_pool_task;
                 thread_pool_task.m_function = simple_server_process;
                 thread_pool_task.m_argument = (void*)thread_argument;
+                // printf("task add\n");
                 m_thread_pool->AddTask(thread_pool_task);
             }
         }

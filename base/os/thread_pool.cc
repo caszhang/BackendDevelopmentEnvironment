@@ -11,6 +11,7 @@ void thread_pool_routine(void *param)
         if (!ret) {
             continue;
         }
+        // printf("thread_pool_routine called\n");
         (*(thread_pool_task.m_function))(thread_pool_task.m_argument);
     }
 }
@@ -52,6 +53,7 @@ void ThreadPool::Start()
 void ThreadPool::AddTask(const ThreadPoolTask &task)
 {
     m_task_queue->WaitTillPush(task);
+    // printf("AddTask called\n");
 }
 
 void ThreadPool::Stop()
