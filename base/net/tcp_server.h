@@ -1,3 +1,4 @@
+// Deprecated
 // Author: zhangguoqiang01 <80176975@qq.com>
 // generally speaking, there are four kinds of net modle:
 // 1,one thread per connection
