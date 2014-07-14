@@ -183,40 +183,6 @@ namespace internal_sort
 
     // enhance quick sort begin
 
-    /* Byte-wise swap two items of size SIZE. */
-#define SWAP(a, b, size)						\
-    do {											\
-        register size_t __size = (size);			\
-        register char *__a = (a), *__b = (b);		\
-        do {										\
-            char __tmp = *__a;						\
-            *__a++ = *__b;							\
-            *__b++ = __tmp;							\
-        } while (--__size > 0);						\
-    } while (0)
-
-    /* Discontinue quicksort algorithm when partition gets below this size.
-       This particular magic number was chosen to work best on a Sun 4/260. */
-#define MAX_THRESH 4
-
-    /* Stack node declarations used to store unfulfilled partition obligations. */
-    typedef struct {
-        char *lo;
-        char *hi;
-    } stack_node;
-
-    /* The next 4 #defines implement a very fast in-line stack abstraction. */
-    /* The stack needs log (total_elements) entries (we could even subtract
-       log(MAX_THRESH)).  Since total_elements has type size_t, we get as
-       upper bound for log (total_elements):
-       bits per byte (CHAR_BIT) * sizeof(size_t).  */
-#define STACK_SIZE	(CHAR_BIT * sizeof(size_t))
-#define PUSH(low, high)	((void) ((top->lo = (low)), (top->hi = (high)), ++top))
-#define	POP(low, high)	((void) (--top, (low = top->lo), (high = top->hi)))
-#define	STACK_NOT_EMPTY	(stack < top)
-#define min(x, y) ((x) < (y) ? (x) : (y))
-
-
     /* Order size using quicksort.  This implementation incorporates
        four optimizations discussed in Sedgewick:
 
@@ -286,7 +252,7 @@ namespace internal_sort
                     SWAP (mid, lo, size);
                 }
 
-jump_over:
+jump_over:;
                 left_ptr  = lo + size;
                 right_ptr = hi - size;
 
