@@ -39,7 +39,8 @@ TEST_F(SortTest, FirstTest)
 
     //internal_sort::QSort((void*)array, sizeof(array) / sizeof(int32_t), sizeof(int32_t), IntegerCompare);
     //internal_sort::HeapSort((void*)array, sizeof(array) / sizeof(int32_t), sizeof(int32_t), IntegerCompare);
-    internal_sort::MergeSort((void*)array, sizeof(array) / sizeof(int32_t), sizeof(int32_t), IntegerCompare);
+    //internal_sort::MergeSort((void*)array, sizeof(array) / sizeof(int32_t), sizeof(int32_t), IntegerCompare);
+    internal_sort::EQSort((void*)array, sizeof(array) / sizeof(int32_t), sizeof(int32_t), IntegerCompare);
     printf("after:\n");
     for (uint32_t i = 0; i < sizeof(array) / sizeof(int32_t); i++) {
         printf("%d\n", array[i]);
@@ -59,7 +60,8 @@ TEST_F(SortTest, RandomTest)
 
     //internal_sort::QSort((void*)array, sizeof(array) / sizeof(int32_t), sizeof(int32_t), IntegerCompare);
     //internal_sort::HeapSort((void*)array, array_size, sizeof(int32_t), IntegerCompare);
-    internal_sort::MergeSort((void*)array, array_size, sizeof(int32_t), IntegerCompare);
+    //internal_sort::MergeSort((void*)array, array_size, sizeof(int32_t), IntegerCompare);
+    internal_sort::EQSort((void*)array, array_size, sizeof(int32_t), IntegerCompare);
     printf("after:\n");
     for (uint32_t i = 0; i < array_size; i++) {
         printf("%d\n", array[i]);
@@ -103,7 +105,8 @@ TEST_F(SortTest, StructTest)
     }
     //internal_sort::QSort((void*)array, 8, sizeof(Node), StructCompare);
     //internal_sort::HeapSort((void*)array, 8, sizeof(Node), StructCompare);
-    internal_sort::MergeSort((void*)array, 8, sizeof(Node), StructCompare);
+    //internal_sort::MergeSort((void*)array, 8, sizeof(Node), StructCompare);
+    internal_sort::EQSort((void*)array, 8, sizeof(Node), StructCompare);
 
     printf("after:\n");
     for (int i = 0; i < 8; i++) {

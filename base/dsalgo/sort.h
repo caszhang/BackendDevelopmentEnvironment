@@ -58,5 +58,10 @@ void MergeSort(void *data, uint32_t element_num,
 
 // MergeSort end
 
+// enhance quick sort begin
+
+void EQSort(void * pbase, size_t total_elems, size_t size,
+       int(*cmp)(const void *,const void *));
+// enhance quick sort end
 }
 #endif // SORT_H_
