@@ -1,6 +1,6 @@
 /***************************************************************************
  * 
- * Copyright (c) 2013 Baidu.com, Inc. All Rights Reserved
+ * Copyright (c) 2013 Foxea.com, Inc. All Rights Reserved
  * 
  **************************************************************************/
  
@@ -8,7 +8,7 @@
  
 /**
  * @file log.cc
- * @author zhangguoqiang01(com@baidu.com)
+ * @author zhangguoqiang01(com@foxea.com)
  * @date 2013/12/20 16:28:03
  * @brief 
  *  

@@ -1,6 +1,6 @@
 /***************************************************************************
  * 
- * Copyright (c) 2014 Baidu.com, Inc. All Rights Reserved
+ * Copyright (c) 2014 Foxea.com, Inc. All Rights Reserved
  * 
  **************************************************************************/
  
@@ -8,7 +8,7 @@
  
 /**
  * @file gconfig.cc
- * @author zhangguoqiang01(com@baidu.com)
+ * @author zhangguoqiang01(com@foxea.com)
  * @date 2014/02/20 21:47:11
  * @brief 
  *  
