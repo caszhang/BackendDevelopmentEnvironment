@@ -9,10 +9,10 @@
 '''
 
 config = {
-    "db_host": "112.124.57.220",
-    "db_user": "foxea_dev",
-    "db_password": "foxea_dev",
-    "db_port": 3306,
-    "db_database": "foxea",
+    "db_host": "xxx.xxx.xxx.xxx",
+    "db_user": "xxx",
+    "db_password": "xxx",
+    "db_port": xxx,
+    "db_database": "xxx",
 }
 
