@@ -63,8 +63,9 @@ bool DB::Query(const char *sql, MYSQL_RES * &result)
     result = NULL;
     try {
         if (0 != mysql_query(m_mysql, sql)) {
-            fprintf(stderr, "mysql_query %s Error:%s\n", sql, mysql_error(m_mysql));
-	    ReConnect(); 
+            //fprintf(stderr, "mysql_query %s Error:%s\n", sql, mysql_error(m_mysql));
+            PackError();
+            ReConnect(); 
             return false;
         }
         result = mysql_store_result(m_mysql);
@@ -79,13 +80,15 @@ bool DB::Query(const char *sql, MYSQL_RES * &result)
                 // (it was not a SELECT)
             } else {
                 //m_mysql_store_result() should have returned data
-                fprintf(stderr, "Error: %s\n", mysql_error(m_mysql));
-		ReConnect();
+                //fprintf(stderr, "Error: %s\n", mysql_error(m_mysql));
+                PackError();
+                ReConnect();
                 return false;
             }
         } 
     } catch (...) {
-	ReConnect();
+        PackError();
+        ReConnect();
         return false;
     }
     return true;
@@ -97,7 +100,7 @@ bool DB::Operate(const char *sql)
     try {
         if (0 != mysql_query(m_mysql, sql)) {
             fprintf(stderr, "mysql_query %s Error:%s\n", sql, mysql_error(m_mysql));
-	    ReConnect();
+            ReConnect();
             return false;
         } else {
             result = mysql_store_result(m_mysql);
@@ -115,17 +118,30 @@ bool DB::Operate(const char *sql)
                     //m_mysql_store_result() should have returned data
                     mysql_free_result(result);
                     fprintf(stderr, "Error: %s\n", mysql_error(m_mysql));
-		    ReConnect();
+                    ReConnect();
                     return false;
                 }
             } 
         }
         mysql_free_result(result);
     } catch (...) {
-	ReConnect();
+        ReConnect();
         return false;
     }
     return true;
+}
+
+void DB::PackError()
+{
+    error_msg.clear();
+    char temp_array[10];
+    snprintf(temp_array, 10, "%d", mysql_errno(m_mysql));
+    error_msg.append(mysql_error(m_mysql)).append(temp_array);
+}
+
+const char* DB::Error()
+{
+    return error_msg.c_str();
 }
 
 uint32_t DB::GetInsertId()

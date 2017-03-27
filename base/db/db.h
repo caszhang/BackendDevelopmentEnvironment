@@ -17,6 +17,8 @@ public:
     uint32_t GetInsertId(); 
     bool Connect();
     void ReConnect();
+    const char* Error();
+    void PackError();
 private:
     MYSQL *m_mysql;
     char m_host[64];
@@ -24,5 +26,6 @@ private:
     char m_passwd[64];
     char m_db_name[64];
     uint16_t m_port;
+    std::string error_msg;
 };
 #endif // DB_H_
