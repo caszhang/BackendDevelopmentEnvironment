@@ -1,5 +1,5 @@
 EXECUTABLE := ../bin/service_foxea
-LIBS := jsoncpp high_light tinyxml ssl crypto event util treeconf glog os dsalgo pthread 
+LIBS := jsoncpp high_light tinyxml ssl crypto event util treeconf glog longconn os dsalgo pthread 
 BASE_PATH := ../../base
 THIRDPARTY_PATH := ../../thirdparty
 INCS := . ../include $(BASE_PATH) $(THIRDPARTY_PATH) $(THIRDPARTY_PATH)/glog-0.3.3/include $(THIRDPARTY_PATH)/treeconf $(THIRDPARTY_PATH)/libevent-2.0.21-stable/include $(THIRDPARTY_PATH)/openssl-1.0.1e/include $(THIRDPARTY_PATH)/tinyxml2-master $(THIRDPARTY_PATH)/jsoncpp-src-0.5.0/include
