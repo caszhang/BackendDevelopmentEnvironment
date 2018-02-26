@@ -1,15 +1,16 @@
-BackgroudDevelopmentEnvionment
+BackendDevelopmentEnvironment
 ==============================
 
-linux background development environment, include glog,gtest,treeconf,protobuf,net.etc
+linux环境下一站式后台开发环境
+linux backend development environment, include glog,gtest,treeconf,protobuf,net.etc
 
 =============================
 How to use for a bare machine
 
 第一步：安装git
 sudo yum install git
-git clone https://github.com/caszhang/BackgroudDevelopmentEnvionment.git
-cd BackgroudDevelopmentEnvionment
+git clone https://github.com/caszhang/BackendDevelopmentEnvironment.git
+cd BackendDevelopmentEnvironment
 git pull origin master
 ssh-keygen -t rsa -C "80176975@qq.com"
 cat ~/.ssh/id_rsa.pub
