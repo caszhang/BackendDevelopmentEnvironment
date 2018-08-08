@@ -66,8 +66,8 @@ sudo python setup.py install
 
 第九步：安装tornado
  vi ~/.bashrc 
-export PYTHONPATH=$PYTHONPATH:/home/guoqiang/github/BackgroudDevelopmentEnvionment/thirdparty/backports.ssl_match_hostname-3.4.0.2/src
-export PYTHONPATH=$PYTHONPATH:/home/guoqiang/github/BackgroudDevelopmentEnvionment/thirdparty/tornado-3.2
+export PYTHONPATH=$PYTHONPATH:/home/guoqiang/github/BackendDevelopmentEnvironment/thirdparty/backports.ssl_match_hostname-3.4.0.2/src
+export PYTHONPATH=$PYTHONPATH:/home/guoqiang/github/BackendDevelopmentEnvironment/thirdparty/tornado-3.2
 exit
 cd Python-2.7.10
 sudo ./configure --with-ssl
