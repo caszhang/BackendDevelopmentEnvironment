@@ -3,6 +3,7 @@ BackendDevelopmentEnvironment
 ==============================
 
 linux环境下一站式后台开发环境
+基于该项目可以快速开发业务处理系统（c/c++ 或 python）和轻量级web站点，高性能高并发的后台server（tcp/http）或微服务
 linux backend development environment, include glog,gtest,treeconf,protobuf,net.etc
 
 =============================
